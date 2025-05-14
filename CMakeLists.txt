@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(SoftRenderAdv)
 
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 set(TARGET_NAME SoftRenderAdv)
 set(THIRD_PARTY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party")
@@ -27,13 +27,47 @@ include_directories(
 )
 
 set(__base
+    "src/base/MathInc.h"
     "src/base/Logger.h"
     "src/base/Logger.cpp"
+    "src/base/FileUtils.h"
+    "src/base/MemoryUtils.h"
+    "src/base/Buffer.h"
+    "src/base/UUID.h"
+    "src/base/ImageUtils.h"
+    "src/base/ImageUtils.cpp"
 )
 source_group("base" FILES ${__base})
 
+set(__math
+    "src/math/compiler.h"
+    "src/math/fast.h"
+    "src/math/half.h"
+    "src/math/mat2.h"
+    "src/math/mat3.h"
+    "src/math/mat4.h"
+    "src/math/mathfwd.h"
+    "src/math/norm.h"
+    "src/math/quat.h"
+    "src/math/scalar.h"
+    "src/math/TMatHelpers.h"
+    "src/math/TQuatHelpers.h"
+    "src/math/TVecHelpers.h"
+    "src/math/vec2.h"
+    "src/math/vec3.h"
+    "src/math/vec4.h"
+)
+source_group("math" FILES ${__math})
+
 set(__render
     "src/render/Renderer.h"
+    "src/render/Texture.h"
+    "src/render/Framebuffer.h"
+    "src/render/PipelineStates.h"
+    "src/render/RenderStates.h"
+    "src/render/ShaderProgram.h"
+    "src/render/Uniform.h"
+    "src/render/Vertex.h"
 )
 source_group("render" FILES ${__render})
 
@@ -41,11 +75,20 @@ set(__render__opengl
     "src/render/opengl/OpenGLUtils.h"
     "src/render/opengl/GLSLUtils.h"
     "src/render/opengl/GLSLUtils.cpp"
+    "src/render/opengl/EnumsOpenGL.h"
+    "src/render/opengl/FramebufferOpenGL.h"
+    "src/render/opengl/RendererOpenGL.h"
+    "src/render/opengl/RendererOpenGL.cpp"
+    "src/render/opengl/ShaderProgramOpenGL.h"
+    "src/render/opengl/TextureOpenGL.h"
+    "src/render/opengl/UniformOpenGL.h"
+    "src/render/opengl/VertexOpenGL.h"
 )
 source_group("render/opengl" FILES ${__render__opengl})
 
 set(Source
     "src/Main.cpp"
+    "src/Config.h"
     "src/Viewer.h"
     "src/Viewer.cpp"
     "src/Viewer.h"
